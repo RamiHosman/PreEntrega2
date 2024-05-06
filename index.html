@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce de Mates y Termos Argentinos</title>
+    <style>
+        /* Estilos CSS para mejorar la apariencia */
+        /* Puedes personalizarlos según tus preferencias */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .cart {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .cart-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Ecommerce de Mates y Termos Argentinos</h1>
+        <nav>
+            <a href="#mates">Mates</a> |
+            <a href="#termos">Termos</a> |
+            <a href="#bombillas">Bombillas</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section id="carrito" class="cart">
+        <h2>Carrito</h2>
+        <div id="carrito-items">
+            <!-- Aquí se mostrarán los productos agregados al carrito -->
+        </div>
+        <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+    </section>
+
+    <section id="mates">
+        <h2>Mates</h2>
+        <div class="product">
+            <h3>Mate Tradicional de Calabaza</h3>
+            <p>Precio: $20.99</p>
+            <button onclick="agregarAlCarrito('Mate Tradicional de Calabaza', 20.99)">Agregar al Carrito</button>
+        </div>
+        <!-- Agrega más productos mates aquí -->
+    </section>
+
+    <section id="termos">
+        <h2>Termos</h2>
+        <div class="product">
+            <h3>Termo Clásico de Acero Inoxidable</h3>
+            <p>Precio: $45.99</p>
+            <button onclick="agregarAlCarrito('Termo Clásico de Acero Inoxidable', 45.99)">Agregar al Carrito</button>
+        </div>
+        <!-- Agrega más productos termos aquí -->
+    </section>
+
+    <section id="bombillas">
+        <h2>Bombillas</h2>
+        <div class="product">
+            <h3>Bombilla de Acero Inoxidable Curva</h3>
+            <p>Precio: $8.99</p>
+            <button onclick="agregarAlCarrito('Bombilla de Acero Inoxidable Curva', 8.99)">Agregar al Carrito</button>
+        </div>
+        <!-- Agrega más productos bombillas aquí -->
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>Derechos Reservados &copy; 2024 - Ecommerce de Mates y Termos Argentinos</p>
+    </div>
+</footer>
+
+<script>
+    // Función para agregar un producto al carrito
+    function agregarAlCarrito(nombre, precio) {
+        const carritoItems = document.getElementById("carrito-items");
+        const nuevoItem = document.createElement("div");
+        nuevoItem.classList.add("cart-item");
+        nuevoItem.innerHTML = `<p>${nombre} - $${precio}</p>`;
+        carritoItems.appendChild(nuevoItem);
+    }
+
+    // Función para vaciar el carrito
+    function vaciarCarrito() {
+        const carritoItems = document.getElementById("carrito-items");
+        carritoItems.innerHTML = ""; // Elimina todos los elementos dentro del carrito
+    }
+</script>
+
+</body>
+</html>
