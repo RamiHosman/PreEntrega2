@@ -1,4 +1,4 @@
-const mates = [
+export const mates = [
   {
     nombre: "Mate Imperial de Alpaca",
     precio: 48000.0,
@@ -15,28 +15,21 @@ const mates = [
   },
   {
     nombre: "Mate de Calabaza Camionero",
-    precio: 300000.0,
+    precio: 30000.0,
     marca: "ArteMate",
     color: "Negro",
     imagen: "assets/MateCamionero.png",
   },
   {
     nombre: "Mate de Calabaza Torpedo",
-    precio: 300000.0,
+    precio: 30000.0,
     marca: "ArteMate",
     color: "Bronce",
     imagen: "assets/MateTorpedo.png",
   },
-  {
-    nombre: "Mate de Madera",
-    precio: 42.99,
-    marca: "MaderaMate",
-    color: "Marrón Oscuro",
-    imagen: "assets/MateDeMadera.png",
-  },
 ];
 
-const termos = [
+export const termos = [
   {
     nombre: "Termo Stanley con manija de metal",
     precio: 110000.0,
@@ -67,7 +60,7 @@ const termos = [
   },
 ];
 
-const bombillas = [
+export const bombillas = [
   {
     nombre: "Bombilla Labrada de Alpaca 10 mm Pico de Loro  ",
     precio: 26000.0,
