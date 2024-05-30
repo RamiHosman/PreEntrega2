@@ -89,8 +89,8 @@ header nav a {
 /* Estilos para el icono de carrito */
 .cart-icon {
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 1.25rem;
+  right: 1.25rem;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
@@ -150,3 +150,19 @@ header nav a {
   border-top: 2px solid #ccc;
   margin: 20px 0;
 }
+
+/* Estilos de botones  */
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #555;
+}
+

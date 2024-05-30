@@ -85,12 +85,16 @@ function calcularTotal() {
 // Función para mostrar el total a pagar junto al botón "Vaciar Carrito"
 function mostrarTotal() {
   const total = calcularTotal();
-  const totalElement = document.createElement("span");
-  totalElement.textContent = `Total a pagar: $${total.toFixed(2)}`;
-  totalElement.classList.add("cart-total");
-  const vaciarCarritoBtn = document.getElementById("vaciar-carrito-btn");
-  vaciarCarritoBtn.nextElementSibling?.remove();
-  vaciarCarritoBtn.insertAdjacentElement("afterend", totalElement);
+  const totalElement = document.querySelector(".cart-total");
+  if (totalElement) {
+    totalElement.textContent = `Total a pagar: $${total.toFixed(2)}`;
+  } else {
+    const nuevoTotalElement = document.createElement("span");
+    nuevoTotalElement.textContent = `Total a pagar: $${total.toFixed(2)}`;
+    nuevoTotalElement.classList.add("cart-total");
+    const vaciarCarritoBtn = document.getElementById("vaciar-carrito-btn");
+    vaciarCarritoBtn.insertAdjacentElement("afterend", nuevoTotalElement);
+  }
 }
 
 
@@ -105,15 +109,6 @@ function guardarCarritoEnLocalStorage(carrito) {
 // Función para obtener el carrito del localStorage
 function obtenerCarritoDelLocalStorage() {
   const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  
-  // Agregar el total a pagar al elemento span
-  const totalAPagar = parseFloat(localStorage.getItem("totalAPagar")) || 0;
-  const totalElement = document.createElement("span");
-  totalElement.textContent = `Total a pagar: $${totalAPagar.toFixed(2)}`;
-  const vaciarCarritoBtn = document.getElementById("vaciar-carrito-btn");
-  vaciarCarritoBtn.nextElementSibling?.remove();
-  vaciarCarritoBtn.insertAdjacentElement("afterend", totalElement);
-  
   return carrito;
 }
 
@@ -125,13 +120,15 @@ function cargarProductosDelLocalStorage() {
   carrito.forEach((producto) => {
     const nuevoItem = document.createElement("div");
     nuevoItem.classList.add("cart-item");
+    nuevoItem.dataset.precio = producto.precio;
     nuevoItem.innerHTML = `<p>${producto.nombre} - $${producto.precio}</p>`;
     carritoItems.appendChild(nuevoItem);
   });
 
-  // Recalcular el total después de cargar los productos del carrito desde el localStorage
+  // Mostrar el total después de cargar los productos del carrito desde el localStorage
   mostrarTotal();
 }
+
 
 // Llama a la función para cargar los productos del localStorage al cargar la página
 window.addEventListener("load", cargarProductosDelLocalStorage);
