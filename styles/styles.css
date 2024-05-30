@@ -84,6 +84,27 @@ header nav a {
 
 .cart-item {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item p {
+  margin: 0;
+}
+
+.eliminar-item-btn {
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.eliminar-item-btn:hover {
+  background-color: #cc0000;
 }
 
 /* Estilos para el icono de carrito */
@@ -170,4 +191,3 @@ button {
 button:hover {
   background-color: #555;
 }
-

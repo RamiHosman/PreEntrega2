@@ -41,10 +41,15 @@ function agregarAlCarrito(nombre, precio) {
     nuevoItem.classList.add("cart-item");
     nuevoItem.dataset.nombre = nombre;
     nuevoItem.dataset.precio = precio;
-    nuevoItem.innerHTML = `<p>${nombre} - $${precio} x <span class="cantidad">1</span></p>`;
+    nuevoItem.innerHTML = `<p>${nombre} - $${precio} x <span class="cantidad">1</span></p>
+                           <button class="eliminar-item-btn">Eliminar</button>`;
+    nuevoItem
+      .querySelector(".eliminar-item-btn")
+      .addEventListener("click", () => {
+        eliminarDelCarrito(nombre);
+      });
     carritoItems.appendChild(nuevoItem);
   }
-
   // Guardar el producto en el localStorage
   let carrito = obtenerCarritoDelLocalStorage();
   let productoExistente = carrito.find((item) => item.nombre === nombre);
@@ -56,6 +61,23 @@ function agregarAlCarrito(nombre, precio) {
   guardarCarritoEnLocalStorage(carrito);
 
   // Mostrar el total después de agregar el producto al carrito
+  mostrarTotal();
+}
+
+// Funcion para eliminar un producto del carrito
+function eliminarDelCarrito(nombre) {
+  const carritoItems = document.getElementById("carrito-items");
+  const item = carritoItems.querySelector(
+    `.cart-item[data-nombre="${nombre}"]`
+  );
+  if (item) {
+    carritoItems.removeChild(item);
+  }
+
+  let carrito = obtenerCarritoDelLocalStorage();
+  carrito = carrito.filter((producto) => producto.nombre !== nombre);
+  guardarCarritoEnLocalStorage(carrito);
+
   mostrarTotal();
 }
 
@@ -135,7 +157,13 @@ function cargarProductosDelLocalStorage() {
     nuevoItem.classList.add("cart-item");
     nuevoItem.dataset.nombre = producto.nombre;
     nuevoItem.dataset.precio = producto.precio;
-    nuevoItem.innerHTML = `<p>${producto.nombre} - $${producto.precio} x <span class="cantidad">${producto.cantidad}</span></p>`;
+    nuevoItem.innerHTML = `<p>${producto.nombre} - $${producto.precio} x <span class="cantidad">${producto.cantidad}</span></p>
+                           <button class="eliminar-item-btn">Eliminar</button>`;
+    nuevoItem
+      .querySelector(".eliminar-item-btn")
+      .addEventListener("click", () => {
+        eliminarDelCarrito(producto.nombre);
+      });
     carritoItems.appendChild(nuevoItem);
   });
 
