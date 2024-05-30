@@ -28,16 +28,31 @@ function mostrarProductos(contenedor, productos) {
 
 function agregarAlCarrito(nombre, precio) {
   const carritoItems = document.getElementById("carrito-items");
-  const nuevoItem = document.createElement("div");
-  nuevoItem.classList.add("cart-item");
-  nuevoItem.dataset.precio = precio;
-  nuevoItem.innerHTML = `<p>${nombre} - $${precio}</p>`;
-  carritoItems.appendChild(nuevoItem);
+  let encontrado = false;
+  carritoItems.querySelectorAll(".cart-item").forEach((item) => {
+    if (item.dataset.nombre === nombre) {
+      let cantidadElem = item.querySelector(".cantidad");
+      cantidadElem.textContent = parseInt(cantidadElem.textContent) + 1;
+      encontrado = true;
+    }
+  });
+  if (!encontrado) {
+    const nuevoItem = document.createElement("div");
+    nuevoItem.classList.add("cart-item");
+    nuevoItem.dataset.nombre = nombre;
+    nuevoItem.dataset.precio = precio;
+    nuevoItem.innerHTML = `<p>${nombre} - $${precio} x <span class="cantidad">1</span></p>`;
+    carritoItems.appendChild(nuevoItem);
+  }
 
   // Guardar el producto en el localStorage
-  const producto = { nombre, precio };
-  const carrito = obtenerCarritoDelLocalStorage();
-  carrito.push(producto);
+  let carrito = obtenerCarritoDelLocalStorage();
+  let productoExistente = carrito.find((item) => item.nombre === nombre);
+  if (productoExistente) {
+    productoExistente.cantidad += 1;
+  } else {
+    carrito.push({ nombre, precio, cantidad: 1 });
+  }
   guardarCarritoEnLocalStorage(carrito);
 
   // Mostrar el total después de agregar el producto al carrito
@@ -73,11 +88,10 @@ document
 
 // Función para calcular el total del carrito
 function calcularTotal() {
-  const carritoItems = document.querySelectorAll(".cart-item");
+  const carrito = obtenerCarritoDelLocalStorage();
   let total = 0;
-  carritoItems.forEach((item) => {
-    const precio = parseFloat(item.dataset.precio || 0);
-    total += precio;
+  carrito.forEach((item) => {
+    total += item.precio * item.cantidad;
   });
   return total;
 }
@@ -96,7 +110,6 @@ function mostrarTotal() {
     vaciarCarritoBtn.insertAdjacentElement("afterend", nuevoTotalElement);
   }
 }
-
 
 // Función para guardar el carrito en el localStorage
 function guardarCarritoEnLocalStorage(carrito) {
@@ -120,15 +133,15 @@ function cargarProductosDelLocalStorage() {
   carrito.forEach((producto) => {
     const nuevoItem = document.createElement("div");
     nuevoItem.classList.add("cart-item");
+    nuevoItem.dataset.nombre = producto.nombre;
     nuevoItem.dataset.precio = producto.precio;
-    nuevoItem.innerHTML = `<p>${producto.nombre} - $${producto.precio}</p>`;
+    nuevoItem.innerHTML = `<p>${producto.nombre} - $${producto.precio} x <span class="cantidad">${producto.cantidad}</span></p>`;
     carritoItems.appendChild(nuevoItem);
   });
 
   // Mostrar el total después de cargar los productos del carrito desde el localStorage
   mostrarTotal();
 }
-
 
 // Llama a la función para cargar los productos del localStorage al cargar la página
 window.addEventListener("load", cargarProductosDelLocalStorage);

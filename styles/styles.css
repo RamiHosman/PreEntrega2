@@ -102,6 +102,11 @@ header nav a {
   align-items: center;
 }
 
+.cantidad {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
 /* Estilos de los productos */
 .product {
   border: 1px solid #ccc;
